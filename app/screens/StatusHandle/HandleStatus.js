@@ -26,6 +26,7 @@ const HandleStatus = ({ navigation }) => {
   const [isAceept, setIsAceept] = useState(false);
 
   const handleAcceptPress = () => {
+  console.log('handleAcceptPress: ', handleAcceptPress);
     setIsVisible(false)
     setIsAceept(true)
   }

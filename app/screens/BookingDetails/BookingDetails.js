@@ -47,7 +47,14 @@ const BookingDetails = ({ navigation, route }) => {
           <Header
             heading={type === 'accept' ? 'Accept Booking' : 'Booking detail'}
             leftIcon={true}
-            handleLeftIconPress={() => navigation.goBack()}
+            handleLeftIconPress={() => {
+              if (type === 'accept') {
+                navigation.navigate('Status')
+              } else {
+                navigation.goBack()
+              }
+            }
+            }
           />
         </View>
       </View>

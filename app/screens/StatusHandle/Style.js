@@ -21,6 +21,7 @@ const styles = StyleSheet.create({
     marginHorizontal: hp('2%')
   },
   carCard: {
+    width: '100%',
     backgroundColor: '#E8F1FD',
     borderRadius: hp('2%'),
     padding: hp('2%'),
@@ -29,12 +30,12 @@ const styles = StyleSheet.create({
   },
   carNameTxt: {
     color: '#02141F',
-    fontSize: hp('2.2%'),
+    fontSize: hp('2%'),
     fontWeight: '500',
   },
   carValueTxt: {
     color: '#02141F',
-    fontSize: hp('2%'),
+    fontSize: hp('1.8%'),
     opacity: 0.5,
   },
   rowContainer: {
@@ -43,7 +44,7 @@ const styles = StyleSheet.create({
   },
   priceTxt: {
     color: '#02141F',
-    fontSize: hp('3%'),
+    fontSize: hp('2.7%'),
     fontWeight: 'bold',
     marginRight: hp('2%')
   },
@@ -55,7 +56,7 @@ const styles = StyleSheet.create({
   },
   locationTxt: {
     color: '#001D4C',
-    fontSize: hp('2.2%'),
+    fontSize: hp('2%'),
   },
   borderView: {
     height: hp('6%'),
@@ -88,10 +89,11 @@ const styles = StyleSheet.create({
   labelView: {
     position: 'absolute',
     backgroundColor: '#98E076',
-    padding: hp('1.2%'),
     width: wp('30%'),
+    height: hp('4.5%'),
     right: 0,
     borderBottomLeftRadius: hp('10%'),
+    justifyContent: 'center'
   },
   labelTxt: {
     color: '#fff',

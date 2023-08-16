@@ -1,4 +1,4 @@
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -52,6 +52,7 @@ const styles = StyleSheet.create({
   bannerView: {
     marginTop: hp('5%'),
     backgroundColor: '#FFDE00',
+    width: '100%',
     height: hp('18%'),
     flexDirection: 'row',
     alignItems: 'center',
@@ -59,7 +60,7 @@ const styles = StyleSheet.create({
   },
   bookBtn: {
     backgroundColor: '#952D24',
-    width: wp('20%'),
+    width: wp('25%'),
     alignItems: 'center',
     padding: hp('0.8%'),
     borderRadius: hp('1%'),
@@ -80,8 +81,7 @@ const styles = StyleSheet.create({
   },
   categoryItem: {
     width: wp('28%'),
-    height: hp('6%'),
-    marginRight: hp('2%'),
+    height: hp('5%'),
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
     marginTop: hp('2%'),
   },
   carsTxt: {
-    fontSize: hp('2%'),
+    fontSize: hp('1.8%'),
     fontWeight: '700',
     marginLeft: hp('1%'),
   },
@@ -107,16 +107,23 @@ const styles = StyleSheet.create({
   },
   carbox: {
     marginBottom: hp('1.5%'),
+    width: '100%',
     height: hp('26%'),
     borderRadius: hp('2%'),
     gap: 20,
     justifyContent: 'center',
     padding: hp('2%'),
   },
+  catImg: {
+    width: wp('30%'),
+    height: hp('10%'),
+    resizeMode: 'contain'
+  },
   infoBox: {
     backgroundColor: '#FFF',
-    height: hp('8%'),
-    padding: hp('2%'),
+    width: wp('25%'),
+    height: hp('6.8%'),
+    padding: hp('1.5%'),
     borderRadius: hp('2%'),
     justifyContent: 'center',
   },
@@ -131,7 +138,7 @@ const styles = StyleSheet.create({
   },
   colorValueTxt: {
     color: '#02141F',
-    fontSize: hp('2%'),
+    fontSize: hp('1.8%'),
     opacity: 0.5,
   },
   colorView: {

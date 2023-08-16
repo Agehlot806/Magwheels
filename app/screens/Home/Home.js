@@ -9,7 +9,7 @@ import {
   ScrollView,
   FlatList,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -22,16 +22,16 @@ import Filter from '../../assets/svg/Filter.svg';
 import Seat from '../../assets/svg/Seat.svg';
 
 import styles from './Style';
-import {Cars, CarsInfo, Category} from '../../utils/DemoData';
+import { Cars, CarsInfo, Category } from '../../utils/DemoData';
 
-const Home = ({navigation}) => {
+const Home = ({ navigation }) => {
   const [selected, setSelected] = useState(1);
   return (
     <ScrollView
       showsVerticalScrollIndicator={false}
       nestedScrollEnabled={true}
       contentContainerStyle={styles.mainContainer}>
-      <StatusBar backgroundColor={'#952D24'} barStyle={'light-content'} />
+      <StatusBar backgroundColor={'#952D24'} />
       <View style={styles.topView}>
         <Image
           source={require('../../assets/images/Header.png')}
@@ -49,7 +49,7 @@ const Home = ({navigation}) => {
               <Text style={styles.locationTxt}>2972 Westheimer Rd.</Text>
             </View>
             <Text style={styles.FindTxt}>Find your perfect</Text>
-            <Text style={[styles.FindTxt, {color: '#FFDE00'}]}>Car Rent !</Text>
+            <Text style={[styles.FindTxt, { color: '#FFDE00' }]}>Car Rent !</Text>
           </View>
           {/* Profile Picture */}
           <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
@@ -63,13 +63,15 @@ const Home = ({navigation}) => {
       {/* Search */}
       <View style={styles.mainView}>
         <View style={styles.searchView}>
-          <View style={{flex: 0.5}}>
+          <View style={{ flex: 0.5 }}>
             <Search width={wp('6%')} height={hp('5%')} />
           </View>
-          <View style={{flex: 4}}>
-            <TextInput placeholder="Search" />
+          <View style={{ flex: 4 }}>
+            <TextInput
+              placeholderTextColor={'#000'}
+              placeholder="Search" />
           </View>
-          <TouchableOpacity style={{flex: 0.5}}>
+          <TouchableOpacity style={{ flex: 0.5 }}>
             <Filter width={wp('10%')} height={hp('6%')} />
           </TouchableOpacity>
         </View>
@@ -82,7 +84,8 @@ const Home = ({navigation}) => {
             <Text
               style={{
                 marginVertical: hp('0.1%'),
-              }}>{`Lorem Ipsum is simply dummy text \n of the printing and`}</Text>
+                width: wp('60%')
+              }}>{`Lorem Ipsum is simply dummy text  of the printing and`}</Text>
             <TouchableOpacity style={styles.bookBtn}>
               <Text style={styles.bookBtnTxt}>Book Now</Text>
             </TouchableOpacity>
@@ -105,7 +108,7 @@ const Home = ({navigation}) => {
                 ]}
                 onPress={() => setSelected(item.id)}>
                 <item.image width={wp('10%')} height={hp('6%')} />
-                <Text style={[styles.carsTxt,{
+                <Text style={[styles.carsTxt, {
                   color: selected === item.id ? '#FFF' : '#cccccc'
                 }]}>{item.name}</Text>
               </TouchableOpacity>
@@ -114,20 +117,20 @@ const Home = ({navigation}) => {
         </View>
         {/* Cars card */}
         <View>
-          <TouchableOpacity style={{marginVertical: hp('2%')}}>
+          <TouchableOpacity style={{ marginVertical: hp('2%') }}>
             <Text style={styles.seeallTxt}>See all</Text>
           </TouchableOpacity>
           <FlatList
             data={CarsInfo}
             showsVerticalScrollIndicator={false}
-            contentContainerStyle={{justifyContent: 'center'}}
-            renderItem={({item}) => {
+            contentContainerStyle={{ justifyContent: 'center' }}
+            renderItem={({ item }) => {
               return (
-                <TouchableOpacity
-                onPress={() => navigation.navigate('details')}
+                <View
+                  
                   style={[
                     styles.carbox,
-                    {backgroundColor: item.backgoundColor},
+                    { backgroundColor: item.backgoundColor },
                   ]}>
                   <View
                     style={{
@@ -135,20 +138,20 @@ const Home = ({navigation}) => {
                       justifyContent: 'space-between',
                       alignItems: 'center',
                     }}>
-                    <Image source={require('../../assets/images/Car2.png')} />
+                    <Image source={require('../../assets/images/Car2.png')} style={styles.catImg} />
                     <TouchableOpacity style={styles.infoBox}>
                       <View style={styles.rowContainer}>
                         <Text style={styles.colorTxt}>Color</Text>
                         <View
                           style={[
                             styles.colorView,
-                            {backgroundColor: item.colorCode},
+                            { backgroundColor: item.colorCode },
                           ]}></View>
                       </View>
                       <Text style={styles.colorValueTxt}>Blue</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.infoBox}>
-                      <View style={{flexDirection: 'row'}}>
+                      <View style={{ flexDirection: 'row' }}>
                         <Text style={styles.colorTxt}>Seats</Text>
                         <Seat width={wp('5%')} height={hp('3%')} />
                       </View>
@@ -158,7 +161,7 @@ const Home = ({navigation}) => {
                   <View
                     style={[
                       styles.rowContainer,
-                      {justifyContent: 'space-between'},
+                      { justifyContent: 'space-between' },
                     ]}>
                     <View>
                       <View style={styles.rowContainer}>
@@ -171,12 +174,14 @@ const Home = ({navigation}) => {
                       </View>
                     </View>
                     <View>
-                      <TouchableOpacity style={styles.categoryItem}>
-                        <Text style={styles.carsTxt}>Enquiry Now</Text>
+                      <TouchableOpacity 
+                      onPress={() => navigation.navigate('details')}
+                      style={[styles.categoryItem,{backgroundColor: '#952D24'}]}>
+                        <Text style={[styles.carsTxt,{color: '#fff', marginLeft: 0}]}>Enquiry Now</Text>
                       </TouchableOpacity>
                     </View>
                   </View>
-                </TouchableOpacity>
+                </View>
               );
             }}
           />
@@ -185,15 +190,15 @@ const Home = ({navigation}) => {
         {/* Category List */}
         <View style={styles.categoryView}>
           <Text style={styles.categoryTxt}>Category</Text>
-          <View style={{marginBottom: hp('2%')}}>
+          <View style={{ marginBottom: hp('2%') }}>
             <FlatList
               data={Category}
               horizontal
               showsHorizontalScrollIndicator={false}
-              renderItem={({item}) => (
+              renderItem={({ item }) => (
                 <TouchableOpacity
                   key={item.id}
-                  style={{alignItems: 'center', marginRight: hp('2%')}}>
+                  style={{ alignItems: 'center', marginRight: hp('2%') }}>
                   <item.image width={wp('30%')} height={hp('20%')} />
                   <Text style={styles.colorTxt}>{item.name}</Text>
                 </TouchableOpacity>

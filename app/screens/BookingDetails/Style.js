@@ -3,6 +3,7 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
+import { FONT } from '../../config/Globles';
 
 const styles = StyleSheet.create({
   mainContainer: {
@@ -92,8 +93,8 @@ const styles = StyleSheet.create({
   },
   btnTxt: {
     color: '#fff',
-    fontSize: hp('3%'),
-    fontWeight: '600',
+    fontSize: hp('2.6%'),
+    fontFamily: FONT.MEDIUM
   },
   // Model
   modelBox: {
