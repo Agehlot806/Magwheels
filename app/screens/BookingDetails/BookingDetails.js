@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   BackHandler,
 } from 'react-native';
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -25,11 +25,9 @@ import HomeStyle from '../Home/Style';
 import Header from '../../Componets/Header';
 import Modal from 'react-native-modal';
 
-const BookingDetails = ({ navigation, route }) => {
-  const { type } = route.params || {};
+const BookingDetails = ({navigation, route}) => {
+  const {type} = route.params || {};
   const [enquiryModel, setEnquiryModel] = useState(false);
-
-
 
   return (
     <ScrollView style={styles.mainContainer}>
@@ -49,12 +47,11 @@ const BookingDetails = ({ navigation, route }) => {
             leftIcon={true}
             handleLeftIconPress={() => {
               if (type === 'accept') {
-                navigation.navigate('Status')
+                navigation.navigate('Status');
               } else {
-                navigation.goBack()
+                navigation.goBack();
               }
-            }
-            }
+            }}
           />
         </View>
       </View>
@@ -75,13 +72,13 @@ const BookingDetails = ({ navigation, route }) => {
               <View
                 style={[
                   HomeStyle.colorView,
-                  { backgroundColor: '#2850E0' },
+                  {backgroundColor: '#2850E0'},
                 ]}></View>
             </View>
             <Text style={HomeStyle.colorValueTxt}>Yellow</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.infoBox}>
-            <View style={{ flexDirection: 'row' }}>
+            <View style={{flexDirection: 'row'}}>
               <Text style={HomeStyle.colorTxt}>Seats</Text>
               <Seat width={wp('5%')} height={hp('3%')} fill={'#952D24'} />
             </View>
@@ -96,7 +93,7 @@ const BookingDetails = ({ navigation, route }) => {
             <BlueLocation width={wp('5%')} height={hp('3%')} />
           </View>
           <View>
-            <View style={{ flex: 1 }}>
+            <View style={{flex: 1}}>
               <Text style={HomeStyle.colorValueTxt}>Pick-Up</Text>
               <Text style={styles.locationTxt}>new york</Text>
             </View>
@@ -113,11 +110,11 @@ const BookingDetails = ({ navigation, route }) => {
           <View
             style={[
               HomeStyle.rowContainer,
-              { marginBottom: hp('2%'), justifyContent: 'space-between' },
+              {marginBottom: hp('2%'), justifyContent: 'space-between'},
             ]}>
             <View style={styles.dateInputBox}>
               <View>
-                <Text style={[HomeStyle.colorTxt, { marginBottom: hp('0.8%') }]}>
+                <Text style={[HomeStyle.colorTxt, {marginBottom: hp('0.8%')}]}>
                   From
                 </Text>
                 <Text style={HomeStyle.colorValueTxt}>DD / MM / YYYY</Text>
@@ -126,7 +123,7 @@ const BookingDetails = ({ navigation, route }) => {
             </View>
             <View style={styles.dateInputBox}>
               <View>
-                <Text style={[HomeStyle.colorTxt, { marginBottom: hp('0.8%') }]}>
+                <Text style={[HomeStyle.colorTxt, {marginBottom: hp('0.8%')}]}>
                   To
                 </Text>
                 <Text style={HomeStyle.colorValueTxt}>DD / MM / YYYY</Text>
@@ -135,10 +132,10 @@ const BookingDetails = ({ navigation, route }) => {
             </View>
           </View>
           <View
-            style={[HomeStyle.rowContainer, { justifyContent: 'space-between' }]}>
+            style={[HomeStyle.rowContainer, {justifyContent: 'space-between'}]}>
             <View style={styles.dateInputBox}>
               <View>
-                <Text style={[HomeStyle.colorTxt, { marginBottom: hp('0.8%') }]}>
+                <Text style={[HomeStyle.colorTxt, {marginBottom: hp('0.8%')}]}>
                   From
                 </Text>
                 <Text style={HomeStyle.colorValueTxt}>DD / MM / YYYY</Text>
@@ -147,7 +144,7 @@ const BookingDetails = ({ navigation, route }) => {
             </View>
             <View style={styles.dateInputBox}>
               <View>
-                <Text style={[HomeStyle.colorTxt, { marginBottom: hp('0.8%') }]}>
+                <Text style={[HomeStyle.colorTxt, {marginBottom: hp('0.8%')}]}>
                   To
                 </Text>
                 <Text style={HomeStyle.colorValueTxt}>DD / MM / YYYY</Text>
@@ -160,11 +157,16 @@ const BookingDetails = ({ navigation, route }) => {
         {type === 'accept' ? (
           <View style={styles.priceView}>
             <Text style={styles.priceTxt}>Price</Text>
-            <Text style={[styles.priceTxt, { color: '#952D24' }]}>$125.00</Text>
+            <Text style={[styles.priceTxt, {color: '#952D24'}]}>$125.00</Text>
           </View>
         ) : (
           // {/* Enquiry Button (Booking Details) */}
-          <View style={styles.priceView}>
+          <View
+            style={{
+              marginTop: hp('10%'),
+              marginBottom: hp('1%'),
+              alignItems: 'center'
+            }}>
             <TouchableOpacity
               style={styles.enquiryBtn}
               onPress={() => setEnquiryModel(true)}>
@@ -178,7 +180,7 @@ const BookingDetails = ({ navigation, route }) => {
         isVisible={enquiryModel}
         onBackButtonPress={() => setEnquiryModel(false)}
         onBackdropPress={() => setEnquiryModel(false)}>
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
           <View style={styles.modelBox}>
             <Check />
             <Text style={styles.headingTxt}>Enquiry</Text>
@@ -192,7 +194,7 @@ const BookingDetails = ({ navigation, route }) => {
                 setEnquiryModel(false);
                 navigation.navigate('Status');
               }}>
-              <Text style={[styles.btnTxt, { color: '#242E42' }]}>Ok</Text>
+              <Text style={[styles.btnTxt, {color: '#242E42'}]}>Ok</Text>
             </TouchableOpacity>
           </View>
         </View>

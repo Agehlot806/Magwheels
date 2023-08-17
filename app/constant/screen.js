@@ -10,6 +10,10 @@ export const Screen ={
     MAP:"Map",
     MAPSECOND:"Mapsecond",
     CATEGORY:"Category",
-    PROFILE:"Profile"
+    PROFILE:"Profile",
+    CALENDER: "Outstations",
+    HOME: "Home",
+    DETAILS: "details",
+    STATUS: "Status"
   
 }
