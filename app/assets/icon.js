@@ -16,6 +16,7 @@ const Icons={
     item1:require('../assets/icons/item1.png'),
     item2:require('../assets/icons/item2.png'),
     MaskProfile:require('../assets/icons/MaskProfile.png'),
+    Carbg:require('../assets/icons/Carbg.png'),
    
 }
 export default Icons

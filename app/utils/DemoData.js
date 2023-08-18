@@ -31,7 +31,7 @@ export const CarsInfo = [
     colorCode: '#2850E0',
     color:'Blue',
     seats: 5,
-    name: 'Honda I20',
+    name: 'Mini',
     carNo: 'MUsex1542',
   },
   {
@@ -41,7 +41,7 @@ export const CarsInfo = [
     colorCode: '#F80909',
     color:'Red',
     seats: 5,
-    name: 'Honda I20',
+    name: 'Sedan',
     carNo: 'MUsex1542',
   },
   {
@@ -51,7 +51,7 @@ export const CarsInfo = [
     colorCode: '#FFF500',
     color:'Yellow',
     seats: 5,
-    name: 'Honda I20',
+    name: 'SUV',
     carNo: 'MUsex1542',
   },
 ];

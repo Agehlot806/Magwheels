@@ -14,6 +14,6 @@ export const Screen ={
     CALENDER: "Outstations",
     HOME: "Home",
     DETAILS: "details",
-    STATUS: "Status"
+    STATUS: "Booking"
   
 }
