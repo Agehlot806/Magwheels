@@ -19,18 +19,22 @@ const styles = StyleSheet.create({
     marginHorizontal: hp('2%'),
     marginTop: hp('2%'),
   },
-  dateInputBox: {
-    width: wp('40%'),
-    borderColor: '#cccccc',
-    borderWidth: hp('0.2%'),
-    borderRadius: hp('2%'),
-    padding: hp('1%'),
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-  dateView: {
+  timeView: {
     padding: hp('2%'),
+    alignItems: 'center',
+  },
+  dateview: {
+    padding: hp('2%'),
+  },
+  dateTimeTxt: {
+    color: '#02141F',
+    fontSize: hp('2.6%'),
+    fontFamily: FONT.MEDIUM,
+  },
+  dateTimeValueTxt: {
+    color: '#02141F',
+    fontSize: hp('2.2%'),
+    fontFamily: FONT.MEDIUM,
   },
   btnView: {
     backgroundColor: '#952D24',
@@ -43,7 +47,7 @@ const styles = StyleSheet.create({
   btnTxt: {
     color: '#fff',
     fontSize: hp('2.6%'),
-    fontFamily: FONT.MEDIUM
+    fontFamily: FONT.MEDIUM,
   },
 });
 

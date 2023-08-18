@@ -12,6 +12,8 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import moment from 'moment';
 
 // Svgs
 import Seat from '../../assets/svg/Seat.svg';
@@ -28,6 +30,19 @@ import Modal from 'react-native-modal';
 const BookingDetails = ({navigation, route}) => {
   const {type} = route.params || {};
   const [enquiryModel, setEnquiryModel] = useState(false);
+  const [location, setLocation] = useState(null);
+  const [dateTime, setDateTime] = useState(null);
+  
+  useEffect(() => {
+    getDeatils();
+  }, []);
+
+  const getDeatils = async () => {
+    const locationsData = await AsyncStorage.getItem('location');
+    const dateTimeData = await AsyncStorage.getItem('dateTime');
+    setLocation(JSON.parse(locationsData));
+    setDateTime(JSON.parse(dateTimeData));
+  };
 
   return (
     <ScrollView style={styles.mainContainer}>
@@ -66,7 +81,7 @@ const BookingDetails = ({navigation, route}) => {
             <Text style={HomeStyle.carNameTxt}>Honda I20</Text>
             <Text style={HomeStyle.colorValueTxt}>MU dfh 1542</Text>
           </View>
-          <TouchableOpacity style={styles.infoBox}>
+          {/* <TouchableOpacity style={styles.infoBox}>
             <View style={HomeStyle.rowContainer}>
               <Text style={HomeStyle.colorTxt}>Color</Text>
               <View
@@ -76,7 +91,7 @@ const BookingDetails = ({navigation, route}) => {
                 ]}></View>
             </View>
             <Text style={HomeStyle.colorValueTxt}>Yellow</Text>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
           <TouchableOpacity style={styles.infoBox}>
             <View style={{flexDirection: 'row'}}>
               <Text style={HomeStyle.colorTxt}>Seats</Text>
@@ -95,12 +110,16 @@ const BookingDetails = ({navigation, route}) => {
           <View>
             <View style={{flex: 1}}>
               <Text style={HomeStyle.colorValueTxt}>Pick-Up</Text>
-              <Text style={styles.locationTxt}>new york</Text>
+              <Text style={styles.locationTxt}>
+                {location?.pickUp ? location?.pickUp : 'New york'}
+              </Text>
             </View>
             <View>
               <Text style={HomeStyle.colorValueTxt}>Drop-Of</Text>
               <Text style={styles.locationTxt}>
-                2464 Royal Ln. Mesa, New Je....
+                {location?.dropOff
+                  ? location?.dropOff
+                  : '2464 Royal Ln. Mesa, New Je....'}
               </Text>
             </View>
           </View>
@@ -115,23 +134,27 @@ const BookingDetails = ({navigation, route}) => {
             <View style={styles.dateInputBox}>
               <View>
                 <Text style={[HomeStyle.colorTxt, {marginBottom: hp('0.8%')}]}>
-                  From
+                  Date
                 </Text>
-                <Text style={HomeStyle.colorValueTxt}>DD / MM / YYYY</Text>
+                <Text style={HomeStyle.colorValueTxt}>
+                  {moment(dateTime?.date).format('Do MMMM')}
+                </Text>
               </View>
               <Calendar width={wp('5%')} height={hp('3%')} />
             </View>
             <View style={styles.dateInputBox}>
               <View>
                 <Text style={[HomeStyle.colorTxt, {marginBottom: hp('0.8%')}]}>
-                  To
+                  Time
                 </Text>
-                <Text style={HomeStyle.colorValueTxt}>DD / MM / YYYY</Text>
+                <Text style={HomeStyle.colorValueTxt}>
+                  {moment(dateTime?.time).format('LT')}
+                </Text>
               </View>
               <Calendar width={wp('5%')} height={hp('3%')} />
             </View>
           </View>
-          <View
+          {/* <View
             style={[HomeStyle.rowContainer, {justifyContent: 'space-between'}]}>
             <View style={styles.dateInputBox}>
               <View>
@@ -151,7 +174,7 @@ const BookingDetails = ({navigation, route}) => {
               </View>
               <Clock width={wp('5%')} height={hp('3%')} />
             </View>
-          </View>
+          </View> */}
         </View>
         {/* Price (Accept Booking) */}
         {type === 'accept' ? (
@@ -165,7 +188,7 @@ const BookingDetails = ({navigation, route}) => {
             style={{
               marginTop: hp('10%'),
               marginBottom: hp('1%'),
-              alignItems: 'center'
+              alignItems: 'center',
             }}>
             <TouchableOpacity
               style={styles.enquiryBtn}
@@ -192,7 +215,7 @@ const BookingDetails = ({navigation, route}) => {
               style={styles.btnView}
               onPress={() => {
                 setEnquiryModel(false);
-                navigation.navigate('Status');
+                navigation.navigate('Booking');
               }}>
               <Text style={[styles.btnTxt, {color: '#242E42'}]}>Ok</Text>
             </TouchableOpacity>

@@ -52,7 +52,7 @@ const Category = ({navigation}) => {
      </View>
      <View style={{marginVertical:hp("10%")}}>
               <TouchableOpacity
-                onPress={() => navigation.navigate('Outstations')}
+                onPress={() => navigation.navigate('Map')}
                 style={styles.BtnStyle}>
                 <Text style={styles.BtnText}>Next</Text>
               </TouchableOpacity>

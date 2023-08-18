@@ -6,7 +6,7 @@ import {
   StatusBar,
   TouchableOpacity,
 } from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
 import styles from './Style';
 import Header from '../../Componets/Header';
 import {
@@ -16,12 +16,24 @@ import {
 import {Calendar, LocaleConfig} from 'react-native-calendars';
 
 import {COLOR} from '../../config/Globles';
-import HomeStyle from '../Home/Style';
-
-import CalendarIcon from '../../assets/svg/Calendar.svg';
-import Clock from '../../assets/svg/Clock.svg';
+import RNDateTimePicker from '@react-native-community/datetimepicker';
+import moment from 'moment';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Outstations = ({navigation}) => {
+  const [selectDate, setSelectDate] = useState({});
+  const [selectTime, setselectTime] = useState(null);
+  const [isDisplayTime, setisDisplayTime] = useState(false);
+
+  const handleNextPress = async () => {
+    const dateTimeData = {
+      date: selectDate,
+      time: selectTime,
+    };
+    await AsyncStorage.setItem('dateTime', JSON.stringify(dateTimeData));
+    navigation.navigate('details');
+  };
+
   return (
     <ScrollView style={styles.mainContainer}>
       <StatusBar
@@ -54,34 +66,20 @@ const Outstations = ({navigation}) => {
           }}
           current={'2023-08-17'}
           onDayPress={day => {
-            console.log('selected day', day);
+            setSelectDate(day);
           }}
+          minDate={new Date().toJSON().slice(0, 10)}
           // Mark specific dates as marked
           markedDates={{
-            '2023-08-17': {
+            [selectDate.dateString]: {
               startingDay: true,
               color: COLOR.ThemeColor,
               textColor: '#fff',
               selected: true,
-              selectedColor: 'green',
-            },
-            '2023-08-18': {
-              startingDay: false,
-              color: COLOR.ThemeColor,
-              textColor: '#fff',
-            },
-            '2023-08-19': {
-              startingDay: false,
-              color: COLOR.ThemeColor,
-              textColor: '#fff',
-            },
-            '2023-08-20': {
-              endingDay: true,
-              color: COLOR.ThemeColor,
-              textColor: '#fff',
+              selectedColor: COLOR.ThemeColor,
             },
           }}
-          markingType="period"
+          markingType="dot"
           theme={{
             arrowColor: COLOR.ThemeColor,
           }}
@@ -89,58 +87,37 @@ const Outstations = ({navigation}) => {
       </View>
 
       {/* Date and time */}
-      <View style={styles.dateView}>
-        <View
-          style={[
-            HomeStyle.rowContainer,
-            {marginBottom: hp('2%'), justifyContent: 'space-between'},
-          ]}>
-          <View style={styles.dateInputBox}>
-            <View>
-              <Text style={[HomeStyle.colorTxt, {marginBottom: hp('0.8%')}]}>
-                From
-              </Text>
-              <Text style={HomeStyle.colorValueTxt}>DD / MM / YYYY</Text>
-            </View>
-            <CalendarIcon width={wp('5%')} height={hp('3%')} />
-          </View>
-          <View style={styles.dateInputBox}>
-            <View>
-              <Text style={[HomeStyle.colorTxt, {marginBottom: hp('0.8%')}]}>
-                To
-              </Text>
-              <Text style={HomeStyle.colorValueTxt}>DD / MM / YYYY</Text>
-            </View>
-            <CalendarIcon width={wp('5%')} height={hp('3%')} />
-          </View>
-        </View>
-        <View
-          style={[HomeStyle.rowContainer, {justifyContent: 'space-between'}]}>
-          <View style={styles.dateInputBox}>
-            <View>
-              <Text style={[HomeStyle.colorTxt, {marginBottom: hp('0.8%')}]}>
-                From
-              </Text>
-              <Text style={HomeStyle.colorValueTxt}>DD / MM / YYYY</Text>
-            </View>
-            <Clock width={wp('5%')} height={hp('3%')} />
-          </View>
-          <View style={styles.dateInputBox}>
-            <View>
-              <Text style={[HomeStyle.colorTxt, {marginBottom: hp('0.8%')}]}>
-                To
-              </Text>
-              <Text style={HomeStyle.colorValueTxt}>DD / MM / YYYY</Text>
-            </View>
-            <Clock width={wp('5%')} height={hp('3%')} />
-          </View>
-        </View>
+      <View style={styles.timeView}>
+        <TouchableOpacity
+          style={[styles.btnView, {width: wp('50%')}]}
+          onPress={() => setisDisplayTime(true)}>
+          <Text style={styles.btnTxt}>Select Time</Text>
+        </TouchableOpacity>
+        {isDisplayTime && (
+          <RNDateTimePicker
+            mode="time"
+            value={new Date()}
+            is24Hour={false}
+            onChange={(e, val) => {
+              setisDisplayTime(false);
+              setselectTime(val);
+            }}
+          />
+        )}
       </View>
+      {selectDate && selectTime && (
+        <View style={styles.dateview}>
+          <Text style={styles.dateTimeTxt}>Pick-Up Date and Time</Text>
+          <Text style={styles.dateTimeValueTxt}>{`${moment(
+            selectDate.dateString,
+          ).format('Do MMMM')} , ${moment(selectTime).format('LT')}`}</Text>
+        </View>
+      )}
       {/* Next button */}
       <View style={{alignItems: 'center', marginVertical: hp('2%')}}>
         <TouchableOpacity
           style={styles.btnView}
-          onPress={() => navigation.navigate('details')}>
+          onPress={() => handleNextPress()}>
           <Text style={styles.btnTxt}>Next</Text>
         </TouchableOpacity>
       </View>

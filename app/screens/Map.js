@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   Image,
@@ -8,6 +8,8 @@ import {
   Text,
   TouchableOpacity,
   ScrollView,
+  StatusBar,
+  PermissionsAndroid
 } from 'react-native';
 import {
   heightPercentageToDP as hp,
@@ -16,93 +18,155 @@ import {
 import R from '../assets/R';
 import {COLOR, FONT, FONT_SIZE} from '../config/Globles';
 import LocationCurrent from '../assets/svg/LocationCurrent.svg';
-const Map = ({navigation}) => {
-  return (
-    <ScrollView showsHorizontalScrollIndicator={true}>
-      <View>
-        <ImageBackground
-          source={R.Icons.Maps}
-          resizeMode="cover"
-          style={styles.RectangleImage}>
-          <View style={styles.mapPage}>
-            <View style={[styles.mainContainer, styles.SectionStyle]}>
-              <TextInput
-                style={styles.textContainer}
-                placeholder="your current location"
-                placeholderTextColor="#464444"
-              />
-            </View>
-          </View>
-          <View style={{flex: 1, alignSelf: 'center'}}>
-            <LocationCurrent height={hp('40%')} width={wp('40%')} />
-          </View>
+import MapView, {Marker} from 'react-native-maps';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-          <View style={styles.mapSection}>
-            <View style={styles.MapBottomContainer}>
-              <View style={styles.mapLocation}>
-                <Image source={R.Icons.ic_current} />
-                {/* <Text style={{borderLeftColor:COLOR.BLACK,borderLeftWidth:4,borderStyle: 'dotted'}}></Text> */}
-                <Image
-                  source={R.Icons.Line}
-                  style={{alignSelf: 'center', height: hp('10.2%')}}
-                />
-                <Image source={R.Icons.ic_pin} />
-              </View>
-              <View style={styles.TextSection}>
+const Map = ({navigation}) => {
+  const [SelectLocation, setSelectLocation] = useState({
+    pickUp: '',
+    dropOff: '',
+  });
+
+  const handleNextPress = async () => {
+    navigation.navigate('Outstations');
+    await AsyncStorage.setItem('location', JSON.stringify(SelectLocation));
+  };
+
+  let location = {
+    latitude: 30.259933,
+    longitude: 31.412613,
+    latitudeDelta: 0.009,
+    longitudeDelta: 0.009,
+  };
+
+  useEffect(() => {
+    Permission();
+  }, []);
+  const Permission = async () => {
+    try {
+      const granted = await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+        {
+          title: 'Cool App Location Permission',
+          message: 'Cool App needs access to your Location',
+          buttonNeutral: 'Ask Me Later',
+          buttonNegative: 'Cancel',
+          buttonPositive: 'OK',
+        },
+      );
+      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+        console.log('You can use the Location');
+      } else {
+        console.log('Location permission denied');
+      }
+    } catch (err) {
+      console.warn(err);
+    }
+  };
+  return (
+    <View style={{flex: 1}}>
+      <StatusBar backgroundColor={'#ffff'} barStyle={'dark-content'} />
+      <MapView
+        style={{flex: 1}}
+        showsUserLocation
+        PROVIDER_GOOGLE
+        MAP_TYPES="STANDARD">
+        <Marker
+          title="Home"
+          coordinate={{
+            latitude: location.latitude,
+            longitude: location.longitude,
+          }}
+        />
+      </MapView>
+      <View style={{position: 'absolute', alignSelf: 'center'}}>
+        <View style={[styles.mainContainer, styles.SectionStyle]}>
+          <TextInput
+            style={styles.textContainer}
+            placeholder="your current location"
+            placeholderTextColor="#464444"
+          />
+        </View>
+      </View>
+      <ScrollView style={{height: hp('10%')}}>
+        <View style={styles.mapSection}>
+          <View style={styles.MapBottomContainer}>
+            <View style={styles.mapLocation}>
+              <Image source={R.Icons.ic_current} />
+              <Image
+                source={R.Icons.Line}
+                style={{alignSelf: 'center', height: hp('10.2%')}}
+              />
+              <Image source={R.Icons.ic_pin} />
+            </View>
+            <View style={styles.TextSection}>
+              <Text
+                style={{
+                  color: COLOR.GRAY,
+                  fontSize: FONT_SIZE.F_2,
+                  fontFamily: FONT.REGULAR,
+                  marginHorizontal: hp('1%'),
+                }}>
+                PICKUP
+              </Text>
+
+              <TextInput
+                placeholder="Source"
+                placeholderTextColor={'#000'}
+                style={{
+                  fontSize: hp('2.3%'),
+                }}
+                onChangeText={val => {
+                  setSelectLocation({
+                    ...SelectLocation,
+                    pickUp: val,
+                  });
+                }}
+              />
+
+              <View
+                style={{
+                  borderTopColor: COLOR.GRAY,
+                  borderTopWidth: 1,
+                  width: wp('100%'),
+                  marginTop: hp('2%'),
+                }}>
                 <Text
                   style={{
                     color: COLOR.GRAY,
-                    fontSize: FONT_SIZE.F_23,
+                    fontSize: FONT_SIZE.F_2,
                     fontFamily: FONT.REGULAR,
-                  }}>
-                  PICKUP
-                </Text>
-                <Text
-                  style={{
-                    color: COLOR.BLACK,
-                    fontSize: FONT_SIZE.F_3,
-                    fontFamily: FONT.REGULAR,
-                  }}>
-                  Source
-                </Text>
-                <View
-                  style={{
-                    borderTopColor: COLOR.GRAY,
-                    borderTopWidth: 1,
-                    width: wp('100%'),
                     marginTop: hp('2%'),
+                    marginHorizontal: hp('1%'),
                   }}>
-                  <Text
-                    style={{
-                      color: COLOR.GRAY,
-                      fontSize: FONT_SIZE.F_22,
-                      fontFamily: FONT.REGULAR,
-                      marginTop: hp('2%'),
-                    }}>
-                    DROP-OFF
-                  </Text>
-                  <Text
-                    style={{
-                      color: COLOR.BLACK,
-                      fontSize: FONT_SIZE.F_3,
-                      fontFamily: FONT.REGULAR,
-                    }}>
-                    Destination
-                  </Text>
-                </View>
+                  DROP-OFF
+                </Text>
+                <TextInput
+                  placeholder="Destination"
+                  placeholderTextColor={'#000'}
+                  style={{
+                    fontSize: hp('2.3%'),
+                  }}
+                  onChangeText={val => {
+                    setSelectLocation({
+                      ...SelectLocation,
+                      dropOff: val,
+                    });
+                  }}
+                />
               </View>
             </View>
-            <View style={{}}>
-              <TouchableOpacity
-                onPress={() => navigation.navigate('Mapsecond')}
-                style={styles.BtnStyle}>
-                <Text style={styles.BtnText}>Next</Text>
-              </TouchableOpacity>
-            </View>
           </View>
-        </ImageBackground>
-      </View>
-    </ScrollView>
+          <View style={{}}>
+            <TouchableOpacity
+              onPress={() => handleNextPress()}
+              style={styles.BtnStyle}>
+              <Text style={styles.BtnText}>Next</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </ScrollView>
+    </View>
   );
 };
 
@@ -111,8 +175,6 @@ const styles = StyleSheet.create({
   mainContainer: {
     flexDirection: 'row',
     marginTop: hp('8%'),
-    // marginHorizontal: hp('8%'),
-    backgroundColor: '#FFFFFF',
     borderColor: '#fff',
     borderWidth: 1,
     alignSelf: 'center',
@@ -122,9 +184,8 @@ const styles = StyleSheet.create({
   },
   BtnStyle: {
     backgroundColor: '#952D24',
-    padding: 16,
+    padding: 13,
     width: wp('88%'),
-    // marginRight: hp('20%'),
     marginTop: hp('8%'),
     alignSelf: 'center',
     borderRadius: 20,
@@ -133,7 +194,7 @@ const styles = StyleSheet.create({
   },
   BtnText: {
     color: '#fff',
-    fontSize: FONT_SIZE.F_33,
+    fontSize: FONT_SIZE.F_25,
     textAlign: 'center',
   },
   passwordeye: {
@@ -152,7 +213,6 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     width: wp('100%'),
     height: hp('100%'),
-    // marginVertical: hp('7%'),
   },
   textContainer: {
     flex: 1,
@@ -162,17 +222,17 @@ const styles = StyleSheet.create({
     fontFamily: FONT.REGULAR,
     fontSize: FONT_SIZE.F_23,
     borderRadius: 12,
-    padding: 10,
+    padding: 8,
     color: COLOR.BLACK,
   },
   mapSection: {
-    // marginBottom: hp('%'),
+    borderTopRightRadius: hp('5%'),
+    borderTopLeftRadius: hp('5%'),
     backgroundColor: '#FFFFFF',
-    height: hp('49%'),
+    height: hp('70%'),
   },
   MapBottomContainer: {
     flexDirection: 'row',
-    // justifyContent:"space-between",
     borderEndStartRadius: 30,
   },
   TextSection: {
@@ -180,8 +240,8 @@ const styles = StyleSheet.create({
     marginTop: hp('6%'),
   },
   mapLocation: {
-    marginTop: hp('10%'),
-    marginLeft: hp('3%'),
+    marginTop: hp('11.6%'),
+    marginLeft: hp('2.3%'),
   },
   SectionStyle: {
     flexDirection: 'row',

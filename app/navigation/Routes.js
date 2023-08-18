@@ -19,6 +19,8 @@ import MapSecond from '../screens/MapSecond';
 import Category from '../screens/Category';
 import Profile from '../screens/Profile';
 import Outstations from '../screens/Outstations/Outstations';
+import CustomTab from './CustomTab';
+import CustomDrawer from './CustomDrawer';
 
 const Stack = createNativeStackNavigator();
 
@@ -36,14 +38,13 @@ const Routes = () => {
         <Stack.Screen name={Screen.FORGOTPASSWORD} component={ForgotPassword} />
         <Stack.Screen name={Screen.PASSWORD} component={Password} />
         <Stack.Screen name={Screen.REGISTER} component={Register} />
+        <Stack.Screen name={'Home'} component={CustomDrawer} />
         <Stack.Screen name={Screen.MAP} component={Map} />
         <Stack.Screen name={Screen.MAPSECOND} component={MapSecond} />
         <Stack.Screen name={Screen.CATEGORY} component={Category} />
         <Stack.Screen name={Screen.CALENDER} component={Outstations} />
-        <Stack.Screen name={Screen.PROFILE} component={Profile} />
-        <Stack.Screen name={Screen.HOME} component={Home} />
+        {/* <Stack.Screen name={Screen.HOME} component={Home} /> */}
         <Stack.Screen name={Screen.DETAILS} component={BookingDetails} />
-        <Stack.Screen name={Screen.STATUS} component={HandleStatus} />
       </Stack.Navigator>
     </NavigationContainer>
   );

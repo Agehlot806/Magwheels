@@ -103,21 +103,24 @@ const styles = StyleSheet.create({
     color: '#001D4C',
     fontSize: hp('2%'),
     fontWeight: '500',
-    textAlign: 'right',
+    // textAlign: 'right',
   },
   carbox: {
-    marginBottom: hp('1.5%'),
+    marginBottom: hp('2.3%'),
     width: '100%',
-    height: hp('26%'),
+    height: hp('20%'),
     borderRadius: hp('2%'),
-    gap: 20,
+    // gap: 20,
     justifyContent: 'center',
     padding: hp('2%'),
+    backgroundColor: '#fff',
+    shadowColor: '#000',
+    elevation: 5
   },
   catImg: {
-    width: wp('30%'),
-    height: hp('10%'),
-    resizeMode: 'contain'
+    width: wp('40%'),
+    height: hp('12%'),
+    resizeMode: 'contain',
   },
   infoBox: {
     backgroundColor: '#FFF',
@@ -126,6 +129,8 @@ const styles = StyleSheet.create({
     padding: hp('1.5%'),
     borderRadius: hp('2%'),
     justifyContent: 'center',
+    borderColor: '#cccccc',
+    borderWidth: hp('0.1 %'),
   },
   rowContainer: {
     flexDirection: 'row',
@@ -154,7 +159,7 @@ const styles = StyleSheet.create({
   carValueTxt: {
     color: '#02141F',
     fontSize: hp('2%'),
-    marginLeft: hp('2%'),
+    marginLeft: hp('1%'),
   },
 });
 
