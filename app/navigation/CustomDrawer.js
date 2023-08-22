@@ -10,6 +10,7 @@ import Profile from '../screens/Profile';
 const Drawer = createDrawerNavigator();
 const CustomDrawer = () => {
   return (
+    
     <Drawer.Navigator
       screenOptions={{
         headerShown: false,
@@ -18,7 +19,7 @@ const CustomDrawer = () => {
         },
         drawerLabelStyle: {
           color: '#fff',
-        },
+        }
       }}>
       <Drawer.Screen name="tabs" component={CustomTab} />
       <Drawer.Screen name={Screen.STATUS} component={HandleStatus} />

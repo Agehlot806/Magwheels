@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, StyleSheet, Image} from 'react-native';
+import { View, StyleSheet, Image, StatusBar } from 'react-native';
 import R from '../../assets/R';
 import {
   heightPercentageToDP as hp,
@@ -11,7 +11,7 @@ const Splash = ({ navigation }) => {
   }, 3000);
   return (
     <View style={styles.mainContainer}>
-      <StatusBar backgroundColor={"#ffff"}/>
+      <StatusBar backgroundColor={"#ffff"} />
       <View style={styles.imageContainer}>
         <Image
           source={R.Icons.MyMagwheelsLogo}
@@ -39,8 +39,8 @@ const styles = StyleSheet.create({
 
   },
   imageContainer: {
-    flex:1,
+    flex: 1,
     justifyContent: 'center',
-alignItems:"center"
+    alignItems: "center"
   },
 });

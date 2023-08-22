@@ -27,6 +27,7 @@ const CustomTab = () => {
               style={{
                 width: wp('5%'),
                 height: hp('3%'),
+                resizeMode:'contain'
               }}
             />
           ),
@@ -36,10 +37,11 @@ const CustomTab = () => {
         options={{
           tabBarIcon: () => (
             <Image
-              source={require('../assets/images/home.png')}
+              source={require('../assets/icons/booking.png')}
               style={{
-                width: wp('5%'),
-                height: hp('3%'),
+                width: wp('6%'),
+                height: hp('4%'),
+                resizeMode:'contain'
               }}
             />
           ),
@@ -51,10 +53,11 @@ const CustomTab = () => {
         options={{
           tabBarIcon: () => (
             <Image
-              source={require('../assets/images/home.png')}
+              source={require('../assets/icons/user.png')}
               style={{
-                width: wp('5%'),
+                width: wp('5.6%'),
                 height: hp('3%'),
+                resizeMode:'contain'
               }}
             />
           ),
@@ -66,10 +69,11 @@ const CustomTab = () => {
         options={{
           tabBarIcon: () => (
             <Image
-              source={require('../assets/images/home.png')}
+              source={require('../assets/icons/question.png')}
               style={{
-                width: wp('5%'),
+                width: wp('6%'),
                 height: hp('3%'),
+                resizeMode:'contain'
               }}
             />
           ),

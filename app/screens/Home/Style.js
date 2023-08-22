@@ -15,14 +15,15 @@ const styles = StyleSheet.create({
     // alignItems: 'center',
     justifyContent: 'space-between',
     position: 'absolute',
-    marginHorizontal: hp('2%'),
+    marginHorizontal: hp('1%'),
     marginTop: hp('1.5%'),
   },
   locationView: {
     flexDirection: 'row',
-    alignItems: 'center',
+    // alignItems: 'center',
     gap: 5,
     marginBottom: hp('1.5%'),
+    marginRight:hp('3%')
   },
   locationTxt: {
     color: '#fff',
